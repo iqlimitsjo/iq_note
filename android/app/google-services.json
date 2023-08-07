@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "607676168991",
+    "project_id": "iq-note-e121e",
+    "storage_bucket": "iq-note-e121e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607676168991:android:af7a67600b05f0abcb8e2a",
+        "android_client_info": {
+          "package_name": "com.example.iq_note"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "607676168991-8kes4p3uamgsu90krknpvp1b3qi0rr9n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAde7foV7KsrixAY69QHMejJsI5qGnHA3k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "607676168991-8kes4p3uamgsu90krknpvp1b3qi0rr9n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
