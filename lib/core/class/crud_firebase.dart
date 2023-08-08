@@ -15,13 +15,14 @@ class CRUDFirebase {
 
   static var firestore = myServices.firestore;
 
-  static Future<response_dart.CustomResponse> addData({
+  static Future<(response_dart.CustomResponse, String)> addData({
     required String collectionName,
     required Map<String, dynamic> data,
     String? path,
   }) async {
     CollectionReference collectionReference =
         firestore.collection(collectionName);
+
     DocumentReference documentReferencer = collectionReference.doc(path);
     await documentReferencer.set(data).whenComplete(() {
       myResponse.code = 200;
@@ -35,7 +36,7 @@ class CRUDFirebase {
       myResponse.message = e;
     });
     print(documentReferencer.id);
-    return myResponse;
+    return (myResponse, documentReferencer.id);
   }
 
   static Stream<QuerySnapshot> readData({required String collectionName}) {

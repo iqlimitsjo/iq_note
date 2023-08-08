@@ -24,7 +24,7 @@ class AddTaskController extends GetxController {
   bool isRecording = false;
   String? audioPath;
   PlayerState playerState = PlayerState.stopped;
-  Duration? currentDuration;
+  Duration currentDuration = Duration.zero;
   File? file;
   File? audioFile;
 
@@ -36,6 +36,7 @@ class AddTaskController extends GetxController {
   TaskData taskData = TaskData(Get.find());
   HomeController homeController = Get.find();
   StatusRequest statusRequest = StatusRequest.none;
+  StatusRequest statusRequestMedia = StatusRequest.none;
   DateTime selectedDate = DateTime.now();
   String startTime = DateFormat('hh:mm a').format(DateTime.now()).toString();
   String endTime = DateFormat('hh:mm a')
@@ -44,10 +45,9 @@ class AddTaskController extends GetxController {
   String selectedRemind = "5";
   String selectedRepeat = '0';
   String selectedPriority = '3';
-  String selectedColor = "0";
+  String selectedColor = "5";
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  String audioDuration = "";
-  String audioTotalDuration = "";
+
   String? selectedImage;
 
   updateSelectedDate(DateTime? dateTime) {
@@ -104,18 +104,27 @@ class AddTaskController extends GetxController {
         taskIsCompleted: "0",
         color: selectedColor.toString(),
       );
-      uploadImage();
-      uploadRecord();
+      await uploadImage();
+      await uploadRecord();
       var response = await taskData.addTask("limits", data);
-      statusRequest = handlingFirebaseData(response);
+
+      statusRequest = handlingFirebaseData(response.$1);
+
       if (StatusRequest.success == statusRequest) {
-        //Get.toNamed(AppRoutes.home);
+        myServices.firestore
+            .collection("limits")
+            .doc(response.$2)
+            .collection("attachment")
+            .add({
+          'audio_url': audioDownloadUrl,
+          'image_url': downloadUrl,
+        }).whenComplete(() {
+          showSnackBar(
+              "تمت العملية", "تم إضافة الملاحظة بنجاح", Icons.done_rounded);
 
-        showSnackBar(
-            "تمت العملية", "تم إضافة الملاحظة بنجاح", Icons.done_rounded);
-
-        homeController.getTask();
-        Get.offAndToNamed(AppRoutes.home);
+          homeController.getTask();
+          Get.offAndToNamed(AppRoutes.home);
+        });
       }
       update();
     }
@@ -124,7 +133,7 @@ class AddTaskController extends GetxController {
   startRecord() async {
     try {
       if (await audioRecord.hasPermission()) {
-        await audioRecord.start();
+        await audioRecord.start(encoder: AudioEncoder.wav);
         isRecording = await audioRecord.isRecording();
         audioPath = "";
         update();
@@ -134,52 +143,8 @@ class AddTaskController extends GetxController {
     }
   }
 
-  selectImage(ImageSource imageSource) async {
-    XFile? xFile = await ImagePicker().pickImage(source: imageSource);
-    if (xFile?.path == null) {
-      showSnackBar(
-        AppStrings.error,
-        "لم تقم بإختيار صورة",
-        Icons.info_outline,
-      );
-    } else {
-      file = File(xFile!.path);
-      selectedImage = xFile.path.split(".")[2].split("-")[4].toString();
-    }
-    update();
-  }
-
-  deleteImage() {
-    file!.delete();
-    selectedImage = null;
-    update();
-  }
-
-  uploadImage() async {
-    if (file != null) {
-      var response = await taskData.uploadFile(file!, "Note Images");
-      if (response.$2.message == "success") {
-        downloadUrl = response.$1;
-      } else {
-        statusRequest = StatusRequest.failed;
-      }
-    }
-  }
-
-  uploadRecord() async {
-    if (audioPath != null) {
-      audioFile = File(audioPath!);
-      var response = await taskData.uploadFile(audioFile!, "Voice Recorde");
-      if (response.$2.message == "success") {
-        audioDownloadUrl = response.$1;
-      } else {
-        statusRequest = StatusRequest.failed;
-      }
-    }
-  }
-
   deleteRecord() async {
-    audioPath = "";
+    audioPath = null;
     audioRecord.dispose();
     currentDuration = Duration.zero;
 
@@ -230,6 +195,50 @@ class AddTaskController extends GetxController {
   pausePlayRecording() async {
     await audioPlayer.pause();
     update();
+  }
+
+  uploadRecord() async {
+    if (audioPath != null) {
+      audioFile = File(audioPath!);
+      var response = await taskData.uploadFile(audioFile!, "Voice Recorde");
+      if (response.$2.message == "success") {
+        audioDownloadUrl = response.$1;
+      } else {
+        statusRequest = StatusRequest.failed;
+      }
+    }
+  }
+
+  selectImage(ImageSource imageSource) async {
+    XFile? xFile = await ImagePicker().pickImage(source: imageSource);
+    if (xFile?.path == null) {
+      showSnackBar(
+        AppStrings.error,
+        "لم تقم بإختيار صورة",
+        Icons.info_outline,
+      );
+    } else {
+      file = File(xFile!.path);
+      selectedImage = xFile.path.split(".")[2].split("-")[4].toString();
+    }
+    update();
+  }
+
+  deleteImage() {
+    file!.delete();
+    selectedImage = null;
+    update();
+  }
+
+  uploadImage() async {
+    if (file != null) {
+      var response = await taskData.uploadFile(file!, "Note Images");
+      if (response.$2.message == "success") {
+        downloadUrl = response.$1;
+      } else {
+        statusRequest = StatusRequest.failed;
+      }
+    }
   }
 
   @override

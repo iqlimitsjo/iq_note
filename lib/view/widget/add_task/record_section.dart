@@ -30,7 +30,7 @@ class RecordSection extends StatelessWidget {
                 : const Icon(Icons.mic),
           ),
           const SizedBox(width: 10),
-          if (controller.audioPath != "")
+          if (controller.audioPath != null && controller.isRecording == false)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

@@ -11,21 +11,24 @@ class TaskData {
 
   TaskData(this.crud);
 
-  addTask(String collectionName, TaskModel task) async {
-    var response =
-        await CRUDFirebase.addData(collectionName: collectionName, data: {
-      "task_id": task.taskId,
-      "title": task.taskTitle,
-      "body": task.taskBody,
-      "date": task.taskDate,
-      "start_time": task.taskStartTime,
-      "end_time": task.taskEndTime,
-      "priority": task.taskPriority,
-      "repeat": task.taskRepeat,
-      "remind": task.taskRemind,
-      "isCompleted": task.taskIsCompleted,
-      "color": task.color,
-    });
+  Future<(CustomResponse, String)> addTask(
+      String collectionName, TaskModel task) async {
+    var response = await CRUDFirebase.addData(
+      collectionName: collectionName,
+      data: {
+        "task_id": task.taskId,
+        "title": task.taskTitle,
+        "body": task.taskBody,
+        "date": task.taskDate,
+        "start_time": task.taskStartTime,
+        "end_time": task.taskEndTime,
+        "priority": task.taskPriority,
+        "repeat": task.taskRepeat,
+        "remind": task.taskRemind,
+        "isCompleted": task.taskIsCompleted,
+        "color": task.color,
+      },
+    );
     return response;
   }
 
