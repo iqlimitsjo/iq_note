@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -18,6 +19,13 @@ class HomeController extends GetxController {
   DateTime selectedDate = DateTime.now();
   TaskData taskData = TaskData(Get.find());
   List<TaskModel> data = [];
+  bool isEditing = false;
+  TextEditingController noteTitle = TextEditingController();
+  TextEditingController noteBody = TextEditingController();
+
+  AudioPlayer audioPlayer = AudioPlayer();
+  PlayerState playerState = PlayerState.stopped;
+  Duration currentDuration = Duration.zero;
 
   goToSelectedFilter() async {
     DateTime? dataPicker = await showDatePicker(
@@ -42,13 +50,15 @@ class HomeController extends GetxController {
     data.clear();
     statusRequest = StatusRequest.loading;
     update();
-    var response = await taskData.getTask("limits");
+    var response =
+        await taskData.getTask(collectionName: "limits", orderBy: "priority");
     statusRequest = handlingFirebaseData(response.$2);
     if (statusRequest == StatusRequest.success &&
         response.$2.message == "success") {
       for (var element in response.$1) {
         data.add(TaskModel.fromFirestore(element));
       }
+      print(data.toString());
       statusRequest = StatusRequest.success;
     }
 
@@ -88,9 +98,64 @@ class HomeController extends GetxController {
     update();
   }
 
+  delayTask(String id, String value) async {
+    statusRequest = StatusRequest.loading;
+    update();
+    var response = await taskData.updateTask('limits', id, {
+      'date': value,
+    });
+    statusRequest = handlingFirebaseData(response);
+    if (statusRequest == StatusRequest.success) {
+      await showSnackBar("تم بنجاح", "تم تعديل الملاحظة بنجاح", Icons.edit);
+
+      getTask();
+      update();
+    }
+    update();
+  }
+
   updateSelectedDate(DateTime? dateTime) {
     selectedDate = dateTime ?? DateTime.now();
     update();
+  }
+
+  playRecording(String audioPath) async {
+    try {
+      Source urlSource = UrlSource(audioPath);
+      // update();
+      // audioPlayer.onPositionChanged.listen((event) {
+      //   currentDuration = event;
+      //   update();
+      // });
+      await audioPlayer.play(urlSource);
+      audioPlayer.onPlayerComplete.listen((event) {
+        playerState = PlayerState.completed;
+        update();
+      });
+
+      audioPlayer.onPlayerStateChanged
+          .listen((PlayerState s) => playerState = s);
+
+      update();
+    } catch (e) {
+      print("play recording Error: $e");
+    }
+  }
+
+  stopPlayRecording() async {
+    await audioPlayer.stop();
+    update();
+  }
+
+  pausePlayRecording() async {
+    await audioPlayer.pause();
+    update();
+  }
+
+  goToEditTask(TaskModel editTask) {
+    Get.toNamed(AppRoutes.editTask, arguments: {
+      'task': editTask,
+    });
   }
 
   @override

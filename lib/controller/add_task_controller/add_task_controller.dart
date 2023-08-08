@@ -91,40 +91,36 @@ class AddTaskController extends GetxController {
     if (formKey.currentState!.validate()) {
       statusRequest = StatusRequest.loading;
       update();
-      var data = TaskModel(
-        taskId: Random().nextInt(10000),
-        taskTitle: titleController.text.trim(),
-        taskBody: noteController.text.trim(),
-        taskDate: DateFormat.yMd().format(selectedDate),
-        taskStartTime: startTime,
-        taskEndTime: endTime,
-        taskPriority: selectedPriority,
-        taskRepeat: selectedRepeat,
-        taskRemind: selectedRemind,
-        taskIsCompleted: "0",
-        color: selectedColor.toString(),
-      );
       await uploadImage();
       await uploadRecord();
+
+      var data = TaskModel(
+          taskId: Random().nextInt(10000),
+          taskTitle: titleController.text.trim(),
+          taskBody: noteController.text.trim(),
+          taskDate: DateFormat.yMd().format(selectedDate),
+          taskStartTime: startTime,
+          taskEndTime: endTime,
+          taskPriority: selectedPriority,
+          taskRepeat: selectedRepeat,
+          taskRemind: selectedRemind,
+          taskIsCompleted: "0",
+          color: selectedColor.toString(),
+          attachments: {
+            'audio_url': audioDownloadUrl,
+            'image_url': downloadUrl
+          });
+
       var response = await taskData.addTask("limits", data);
 
       statusRequest = handlingFirebaseData(response.$1);
 
       if (StatusRequest.success == statusRequest) {
-        myServices.firestore
-            .collection("limits")
-            .doc(response.$2)
-            .collection("attachment")
-            .add({
-          'audio_url': audioDownloadUrl,
-          'image_url': downloadUrl,
-        }).whenComplete(() {
-          showSnackBar(
-              "تمت العملية", "تم إضافة الملاحظة بنجاح", Icons.done_rounded);
+        showSnackBar(
+            "تمت العملية", "تم إضافة الملاحظة بنجاح", Icons.done_rounded);
 
-          homeController.getTask();
-          Get.offAndToNamed(AppRoutes.home);
-        });
+        homeController.getTask();
+        Get.offAndToNamed(AppRoutes.home);
       }
       update();
     }

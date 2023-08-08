@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../../../controller/home_controller/home_controller.dart';
 import '../../../core/class/handling_data_view.dart';
+import '../../../core/constant/strings.dart';
 import '../../../core/function/show_bottom_sheet.dart';
 import '../../../data/source/static/static_repeat_list.dart';
 import '../shared/task_tile.dart';
@@ -61,9 +62,23 @@ class TaskView extends StatelessWidget {
                                       ? Get.back()
                                       : Get.back();
                                 },
-                                onDeleteTap: () {
-                                  controller
-                                      .deleteTask(controller.data[index].id!);
+                                onDeleteTap: () async {
+                                  DateTime? dataPicker = await showDatePicker(
+                                    context: context,
+                                    initialDate: controller.selectedDate,
+                                    firstDate: DateTime(2022),
+                                    lastDate: DateTime(2035),
+                                    helpText: "إختر التاريخ",
+                                    confirmText: AppStrings.ok,
+                                    cancelText: AppStrings.cancel,
+                                  );
+                                  if (dataPicker != null) {
+                                    controller.delayTask(
+                                        controller.data[index].id!,
+                                        DateFormat.yMd()
+                                            .format(dataPicker)
+                                            .toString());
+                                  }
                                   Get.isBottomSheetOpen!
                                       ? Get.back()
                                       : Get.back();

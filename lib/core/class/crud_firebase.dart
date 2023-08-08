@@ -50,13 +50,27 @@ class CRUDFirebase {
           (List<QueryDocumentSnapshot<Object?>>, response_dart.CustomResponse)>
       getData({
     required String collectionName,
+    String? orderBy,
+    bool? ascending,
   }) async {
     CollectionReference collectionReference =
         firestore.collection(collectionName);
-    QuerySnapshot query = await collectionReference.get().whenComplete(() {
-      myResponse.code = 200;
-      myResponse.message = "success";
-    });
+    QuerySnapshot query;
+    if (orderBy != null) {
+      query = await collectionReference
+          .orderBy(orderBy, descending: ascending ?? false)
+          .get()
+          .whenComplete(() {
+        myResponse.code = 200;
+        myResponse.message = "success";
+      });
+    } else {
+      query = await collectionReference.get().whenComplete(() {
+        myResponse.code = 200;
+        myResponse.message = "success";
+      });
+    }
+
     if (query.docs.isEmpty) {
       myResponse.code = 500;
       myResponse.message = "empty";

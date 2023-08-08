@@ -6,4 +6,5 @@ class AppRoutes {
   static const String userInfo = "/userInfo";
   static const String filteredTask = "/filteredTask";
   static const String addUser = "/addUser";
+  static const String editTask = "/editTask";
 }

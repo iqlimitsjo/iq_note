@@ -31,6 +31,8 @@ class CustomInputField extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 25),
       child: TextFormField(
         keyboardType: type,
+        maxLines: obscureText == true ? 1 : 5,
+        minLines: 1,
         obscureText: obscureText == null || obscureText == false ? false : true,
         validator: valid,
         readOnly: isReadOnly == true ? true : false,

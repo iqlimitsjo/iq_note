@@ -36,7 +36,7 @@ showCustomBottomSheet({
             clr: Colors.green,
           ),
           buildBottomSheet(
-            label: "حذف الملاحظة",
+            label: "تأجيل الملاحظة",
             onTap: onDeleteTap,
             clr: Colors.redAccent,
           ),

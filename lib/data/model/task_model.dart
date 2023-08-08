@@ -12,21 +12,28 @@ class TaskModel {
   final String? taskRemind;
   final String? taskIsCompleted;
   final String? color;
+  final String? audioUrl;
+  final String? imageUrl;
   final String? id;
+  final Map<String, String?>? attachments;
 
-  TaskModel(
-      {this.taskId,
-      this.taskTitle,
-      this.taskBody,
-      this.taskDate,
-      this.taskStartTime,
-      this.taskEndTime,
-      this.taskPriority,
-      this.taskRepeat,
-      this.taskRemind,
-      this.taskIsCompleted,
-      this.color,
-      this.id});
+  TaskModel({
+    this.taskId,
+    this.taskTitle,
+    this.taskBody,
+    this.taskDate,
+    this.taskStartTime,
+    this.taskEndTime,
+    this.taskPriority,
+    this.taskRepeat,
+    this.taskRemind,
+    this.taskIsCompleted,
+    this.color,
+    this.id,
+    this.imageUrl,
+    this.audioUrl,
+    this.attachments,
+  });
 
   Map<String, dynamic> toJson() {
     return {
@@ -42,6 +49,7 @@ class TaskModel {
       "remind": taskRemind,
       "isCompleted": taskIsCompleted,
       "color": color,
+      "attachments": attachments,
     };
   }
 
@@ -59,6 +67,7 @@ class TaskModel {
       taskRemind: json["remind"],
       taskIsCompleted: json["isCompleted"],
       color: json["color"],
+      attachments: json["attachments"],
     );
   }
 
@@ -77,6 +86,8 @@ class TaskModel {
       taskRemind: data["remind"],
       taskIsCompleted: data["isCompleted"],
       color: data["color"],
+      imageUrl: data["attachments"]['image_url'],
+      audioUrl: data["attachments"]['audio_url'],
     );
   }
 
@@ -95,6 +106,8 @@ class TaskModel {
       "task Remind": $taskRemind,
       "task Is Completed": $taskIsCompleted,
       "task Color": $color,
+      "task image URL": $imageUrl,
+      "task audio URL": $audioUrl,
   ''';
   }
 }

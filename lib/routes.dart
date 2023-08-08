@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:iq_note/view/screen/task/edit_task/edit_task.dart';
 
 import 'core/constant/routes.dart';
 import 'core/middleware/middleware.dart';
@@ -24,4 +25,5 @@ List<GetPage<dynamic>>? routes = [
   GetPage(name: AppRoutes.filteredTask, page: () => const FilteredTask()),
   GetPage(name: AppRoutes.userInfo, page: () => const UserInfo()),
   GetPage(name: AppRoutes.addUser, page: () => const AddUser()),
+  GetPage(name: AppRoutes.editTask, page: () => const EditTask()),
 ];
