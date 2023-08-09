@@ -26,6 +26,7 @@ class Login extends StatelessWidget {
               children: [
                 const ImageHeader(),
                 CustomInputField(
+                  isExpanded: false,
                   hint: AppStrings.emailHint,
                   icon: const Icon(Icons.email),
                   title: AppStrings.email,
@@ -37,6 +38,7 @@ class Login extends StatelessWidget {
                 ),
                 GetBuilder<LoginController>(builder: (controller) {
                   return CustomInputField(
+                    isExpanded: false,
                     hint: AppStrings.passwordHint,
                     icon: const Icon(Icons.password),
                     title: AppStrings.password,

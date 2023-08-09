@@ -53,4 +53,5 @@ class AppStrings {
   static const addUser = "إضافة مستخدم";
   static const addRecord = "إضافة تسجيل";
   static const addImage = "إضافة صورة";
+  static const settings = "الإعدادات";
 }

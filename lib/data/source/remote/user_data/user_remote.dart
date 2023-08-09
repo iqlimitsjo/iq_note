@@ -33,9 +33,9 @@ class UserData {
     return response;
   }
 
-  Future<(String, CustomResponse)> uploadFile(File file) async {
-    var response =
-        await CRUDFirebase.uploadFile(file: file, childName: "users");
+  Future<(String, CustomResponse)> uploadFile(File file, String userId) async {
+    var response = await CRUDFirebase.uploadFile(
+        file: file, childName: "users", id: userId, nameId: userId);
     return response;
   }
 

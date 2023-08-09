@@ -9,6 +9,7 @@ class CustomInputField extends StatelessWidget {
   final String? Function(String?) valid;
   final TextInputType? type;
   final bool? obscureText;
+  final bool? isExpanded;
   final void Function()? onTapIcon;
   final bool isReadOnly;
 
@@ -23,6 +24,7 @@ class CustomInputField extends StatelessWidget {
     this.obscureText,
     this.onTapIcon,
     this.isReadOnly = false,
+    this.isExpanded,
   });
 
   @override
@@ -31,7 +33,7 @@ class CustomInputField extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 25),
       child: TextFormField(
         keyboardType: type,
-        maxLines: obscureText == true ? 1 : 5,
+        maxLines: isExpanded == false ? 1 : 5,
         minLines: 1,
         obscureText: obscureText == null || obscureText == false ? false : true,
         validator: valid,

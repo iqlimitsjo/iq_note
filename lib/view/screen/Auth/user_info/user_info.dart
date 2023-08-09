@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../controller/Auth_controller/user_info_controller.dart';
-import '../../../core/class/handling_data_view.dart';
-import '../../../core/constant/strings.dart';
-import '../../../core/function/valid_input.dart';
-import '../../widget/Auth/user_Info/header_image_picker.dart';
-import '../../widget/shared/button.dart';
-import '../../widget/shared/input_field.dart';
+import '../../../../controller/Auth_controller/user_info_controller.dart';
+import '../../../../core/class/handling_data_view.dart';
+import '../../../../core/constant/strings.dart';
+import '../../../../core/function/valid_input.dart';
+import '../../../widget/Auth/user_Info/header_image_picker.dart';
+import '../../../widget/shared/button.dart';
+import '../../../widget/shared/input_field.dart';
 
 class UserInfo extends StatelessWidget {
   const UserInfo({super.key});

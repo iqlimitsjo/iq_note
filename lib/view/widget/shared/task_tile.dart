@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
@@ -87,10 +88,9 @@ class CustomTaskTile extends GetView<HomeController> {
                         SizedBox(
                           height: 100,
                           child: InstaImageViewer(
-                            child: Image(
-                              image: Image.network(task.imageUrl!).image,
-                            ),
-                          ),
+                              child: CachedNetworkImage(
+                            imageUrl: task.imageUrl!,
+                          )),
                         ),
                       if (task.audioUrl != null)
                         SizedBox(

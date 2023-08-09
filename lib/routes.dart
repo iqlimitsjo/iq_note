@@ -4,9 +4,10 @@ import 'package:iq_note/view/screen/task/edit_task/edit_task.dart';
 import 'core/constant/routes.dart';
 import 'core/middleware/middleware.dart';
 import 'view/screen/Auth/login/login.dart';
-import 'view/screen/Auth/user_info.dart';
+import 'view/screen/Auth/user_info/user_info.dart';
 import 'view/screen/home/home.dart';
 import 'view/screen/notification_screen/notification_screen.dart';
+import 'view/screen/settings/settings.dart';
 import 'view/screen/task/add_task/add_task.dart';
 import 'view/screen/task/view_filter_task/filtered_task.dart';
 import 'view/screen/users/add_user.dart';
@@ -26,4 +27,5 @@ List<GetPage<dynamic>>? routes = [
   GetPage(name: AppRoutes.userInfo, page: () => const UserInfo()),
   GetPage(name: AppRoutes.addUser, page: () => const AddUser()),
   GetPage(name: AppRoutes.editTask, page: () => const EditTask()),
+  GetPage(name: AppRoutes.settings, page: () => const UserSettings()),
 ];

@@ -91,8 +91,8 @@ class AddTaskController extends GetxController {
     if (formKey.currentState!.validate()) {
       statusRequest = StatusRequest.loading;
       update();
-      await uploadImage();
-      await uploadRecord();
+      // await uploadImage();
+      // await uploadRecord();
 
       var data = TaskModel(
           taskId: Random().nextInt(10000),
@@ -114,6 +114,20 @@ class AddTaskController extends GetxController {
       var response = await taskData.addTask("limits", data);
 
       statusRequest = handlingFirebaseData(response.$1);
+      await uploadAttachment(
+          collectionName: 'Images', id: response.$2, file: file);
+      await uploadAttachment(
+          collectionName: 'Voice', id: response.$2, file: audioFile);
+      await taskData.updateTask(
+        "limits",
+        response.$2,
+        {
+          'attachments': {
+            'audio_url': audioDownloadUrl,
+            'image_url': downloadUrl
+          }
+        },
+      );
 
       if (StatusRequest.success == statusRequest) {
         showSnackBar(
@@ -152,6 +166,7 @@ class AddTaskController extends GetxController {
       String? path = await audioRecord.stop();
       isRecording = await audioRecord.isRecording();
       audioPath = path!;
+      audioFile = File(audioPath!);
       print(path);
 
       update();
@@ -193,18 +208,6 @@ class AddTaskController extends GetxController {
     update();
   }
 
-  uploadRecord() async {
-    if (audioPath != null) {
-      audioFile = File(audioPath!);
-      var response = await taskData.uploadFile(audioFile!, "Voice Recorde");
-      if (response.$2.message == "success") {
-        audioDownloadUrl = response.$1;
-      } else {
-        statusRequest = StatusRequest.failed;
-      }
-    }
-  }
-
   selectImage(ImageSource imageSource) async {
     XFile? xFile = await ImagePicker().pickImage(source: imageSource);
     if (xFile?.path == null) {
@@ -226,11 +229,21 @@ class AddTaskController extends GetxController {
     update();
   }
 
-  uploadImage() async {
+  uploadAttachment({
+    required String collectionName,
+    required String id,
+    required File? file,
+  }) async {
     if (file != null) {
-      var response = await taskData.uploadFile(file!, "Note Images");
+      var response = await taskData.uploadFile(
+        file,
+        collectionName,
+        id,
+      );
       if (response.$2.message == "success") {
-        downloadUrl = response.$1;
+        collectionName == "Voice"
+            ? audioDownloadUrl = response.$1
+            : downloadUrl = response.$1;
       } else {
         statusRequest = StatusRequest.failed;
       }

@@ -54,7 +54,7 @@ class UserInfoController extends GetxController {
     if (file != null) {
       statusRequest = StatusRequest.loading;
       update();
-      var response = await userData.uploadFile(file!);
+      var response = await userData.uploadFile(file!, myServices.user.uid);
       if (response.$2.message == "success") {
         downloadUrl = response.$1;
         myServices.user.updatePhotoURL(response.$1);

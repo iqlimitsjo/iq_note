@@ -44,16 +44,24 @@ class TaskData {
   }
 
   Future<(String, CustomResponse)> uploadFile(
-      File file, String childName) async {
+      File file, String childName, String id) async {
     var response = await CRUDFirebase.uploadFile(
       file: file,
       childName: childName,
+      id: id,
+      nameId: id,
     );
     return response;
   }
 
   deleteTask(String collectionName, String id) async {
     var response = await CRUDFirebase.deleteData(
+        collectionName: collectionName, docId: id);
+    return response;
+  }
+
+  deleteFile(String collectionName, String id) async {
+    var response = await CRUDFirebase.deleteFile(
         collectionName: collectionName, docId: id);
     return response;
   }

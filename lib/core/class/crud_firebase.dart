@@ -14,6 +14,7 @@ class CRUDFirebase {
       response_dart.CustomResponse();
 
   static var firestore = myServices.firestore;
+  static var fireStorage = myServices.firestorage;
 
   static Future<(response_dart.CustomResponse, String)> addData({
     required String collectionName,
@@ -33,7 +34,7 @@ class CRUDFirebase {
           data: {'id': documentReferencer.id});
     }).catchError((e) {
       myResponse.code = 500;
-      myResponse.message = e;
+      myResponse.message = e.toString();
     });
     print(documentReferencer.id);
     return (myResponse, documentReferencer.id);
@@ -83,7 +84,6 @@ class CRUDFirebase {
     required String docId,
     required Map<String, dynamic> data,
   }) async {
-    // Response response = Response();
     CollectionReference collectionReference =
         firestore.collection(collectionName);
     DocumentReference documentReferencer = collectionReference.doc(docId);
@@ -91,6 +91,9 @@ class CRUDFirebase {
     await documentReferencer.update(data).whenComplete(() {
       myResponse.code = 200;
       myResponse.message = "success";
+    }).catchError((e) {
+      myResponse.code = 500;
+      myResponse.message = e.toString();
     });
     return myResponse;
   }
@@ -99,7 +102,6 @@ class CRUDFirebase {
     required String collectionName,
     required String docId,
   }) async {
-    // Response response = Response();
     CollectionReference collectionReference =
         firestore.collection(collectionName);
     DocumentReference documentReferencer = collectionReference.doc(docId);
@@ -109,7 +111,24 @@ class CRUDFirebase {
       myResponse.message = "success";
     }).catchError((e) {
       myResponse.code = 500;
-      myResponse.message = e;
+      myResponse.message = e.toString();
+    });
+    return myResponse;
+  }
+
+  static Future<response_dart.CustomResponse> deleteFile({
+    required String collectionName,
+    required String docId,
+  }) async {
+    Reference ref =
+        fireStorage.ref().child(collectionName).child(docId).child(docId);
+
+    await ref.delete().whenComplete(() {
+      myResponse.code = 200;
+      myResponse.message = "success";
+    }).catchError((e) {
+      myResponse.code = 500;
+      myResponse.message = e.toString();
     });
     return myResponse;
   }
@@ -117,12 +136,11 @@ class CRUDFirebase {
   static Future<(String, response_dart.CustomResponse)> uploadFile({
     required File file,
     required String childName,
+    required String id,
+    required String nameId,
   }) async {
     String downloadURL;
-    Reference ref = myServices.firestorage
-        .ref()
-        .child(childName)
-        .child(myServices.user.uid);
+    Reference ref = fireStorage.ref().child(childName).child(id).child(nameId);
     await ref.putFile(file).whenComplete(() {
       myResponse.code = 200;
       myResponse.message = "success";

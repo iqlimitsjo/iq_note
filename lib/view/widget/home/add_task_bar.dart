@@ -23,7 +23,7 @@ class AddTaskBar extends StatelessWidget {
                 DateFormat.yMMMMEEEEd('ar').format(DateTime.now()),
                 style: const TextStyle(
                   fontSize: 18,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
               const Text(
@@ -35,12 +35,15 @@ class AddTaskBar extends StatelessWidget {
               )
             ],
           ),
-          CustomButton(
-              title: ' + ${AppStrings.addN} ',
-              onPressed: () {
-                Get.toNamed(AppRoutes.addTask);
-                // _taskController.getTask();
-              }),
+          Container(
+            padding: const EdgeInsets.all(10),
+            child: CustomButton(
+                title: ' + ${AppStrings.addN} ',
+                onPressed: () {
+                  Get.toNamed(AppRoutes.addTask);
+                  // _taskController.getTask();
+                }),
+          ),
         ],
       ),
     );

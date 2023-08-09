@@ -38,6 +38,14 @@ class AppDrawer extends StatelessWidget {
               },
             ),
             DrawerListTile(
+              title: AppStrings.settings,
+              icon: Icons.settings,
+              onTap: () {
+                Get.back();
+                Get.toNamed(AppRoutes.addUser);
+              },
+            ),
+            DrawerListTile(
               title: AppStrings.signOut,
               icon: Icons.logout,
               onTap: () => controller.signout(),
