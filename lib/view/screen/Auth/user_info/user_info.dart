@@ -25,6 +25,8 @@ class UserInfo extends StatelessWidget {
               key: controller.formStateKey,
               child: ListView(
                 children: [
+                  const Text("أهلا بك",
+                      style: TextStyle(fontSize: 30, color: Colors.green)),
                   const HeaderImagePicker(),
                   const SizedBox(height: 50),
                   CustomInputField(

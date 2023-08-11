@@ -19,6 +19,7 @@ class CustomDrawerController extends GetxController {
   void onInit() {
     userImage = myServices.user.photoURL;
     userName = myServices.user.displayName;
+    print(userName);
 
     super.onInit();
   }

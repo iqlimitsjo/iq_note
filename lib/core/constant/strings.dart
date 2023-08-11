@@ -7,12 +7,14 @@ class AppStrings {
   static const home = "الرئيسية";
   static const ok = "موافق";
   static const save = "حفظ";
+  static const send = "إرسال";
   static const error = "خطأ";
   static const cancel = "إلغاء";
   static const login = "تسجيل الدخول";
   static const selectDate = "إختر تاريخ";
   static const signOut = "تسجيل الخروج";
   static const addNotes = "إضافة ملاحظات";
+  static const username = "إسم المستخدم";
   static const refresh = "تحديث";
   static const addNoteTitle = "عنوان الملاحطة";
   static const addNoteTitleHint = "أدخل عنوان الملاحطة";
@@ -41,6 +43,7 @@ class AppStrings {
   static const password = "الرقم السري ";
   static const passwordHint = "الرجاء إدخال الرقم السري";
   static const forgetPassword = "نسيت الرقم السري ؟";
+  static const resetPassword = "إعادة ضبط الرقم السري";
   static const loginWithBiomatric = "تسجيل الدخول بالبصمة";
   static const gallery = "الاستوديو";
   static const camera = "الكاميرا";

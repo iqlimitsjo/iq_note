@@ -8,4 +8,9 @@ class AppRoutes {
   static const String addUser = "/addUser";
   static const String editTask = "/editTask";
   static const String settings = "/settings";
+  static const String forgetPassword = "/forgetPassword";
+  static const String changeEmail = "/changeEmail";
+  static const String changeUserName = "/changeUserName";
+  static const String changeUserPhone = "/changeUserPhone";
+  static const String changeUserPassword = "/changeUserPassword";
 }

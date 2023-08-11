@@ -14,8 +14,6 @@ class HeaderImagePicker extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          const Text("أهلا بك",
-              style: TextStyle(fontSize: 30, color: Colors.green)),
           const SizedBox(height: 25),
           Stack(
             children: [
@@ -69,7 +67,7 @@ class HeaderImagePicker extends StatelessWidget {
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ],

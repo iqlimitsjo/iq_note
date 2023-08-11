@@ -50,15 +50,16 @@ class UserInfoController extends GetxController {
     update();
   }
 
-  uploadImage() async {
-    if (file != null) {
+  uploadImage(File? userFile) async {
+    if (userFile != null) {
       statusRequest = StatusRequest.loading;
       update();
-      var response = await userData.uploadFile(file!, myServices.user.uid);
+      var response = await userData.uploadFile(userFile, myServices.user.uid);
       if (response.$2.message == "success") {
         downloadUrl = response.$1;
         myServices.user.updatePhotoURL(response.$1);
         showSnackBar("تم", "تم رفع الصورة بنجاح", Icons.done);
+
         statusRequest = StatusRequest.success;
       } else {
         statusRequest = StatusRequest.failed;
@@ -74,7 +75,7 @@ class UserInfoController extends GetxController {
       myServices.user.updateDisplayName(userName.text.trim());
       myServices.user.reload();
 
-      await uploadImage();
+      await uploadImage(file!);
       var response = await userData.updateUser('users', myServices.user.uid, {
         "user_name": userName.text.trim(),
         "user_phone": phoneNumber.text.trim(),
@@ -94,8 +95,8 @@ class UserInfoController extends GetxController {
   @override
   void onInit() {
     biometricEnabled = myServices.sharedPref.getBool('bio') ?? false;
-    email = Get.arguments['email'];
-    password = Get.arguments['password'];
+    email = myServices.sharedPref.getString('email');
+    password = myServices.sharedPref.getString('password');
 
     super.onInit();
   }

@@ -3,10 +3,15 @@ import 'package:iq_note/view/screen/task/edit_task/edit_task.dart';
 
 import 'core/constant/routes.dart';
 import 'core/middleware/middleware.dart';
+import 'view/screen/Auth/forget_password/forget_email.dart';
 import 'view/screen/Auth/login/login.dart';
 import 'view/screen/Auth/user_info/user_info.dart';
 import 'view/screen/home/home.dart';
 import 'view/screen/notification_screen/notification_screen.dart';
+import 'view/screen/settings/change_email.dart';
+import 'view/screen/settings/change_password.dart';
+import 'view/screen/settings/change_phone.dart';
+import 'view/screen/settings/change_user_name.dart';
 import 'view/screen/settings/settings.dart';
 import 'view/screen/task/add_task/add_task.dart';
 import 'view/screen/task/view_filter_task/filtered_task.dart';
@@ -28,4 +33,10 @@ List<GetPage<dynamic>>? routes = [
   GetPage(name: AppRoutes.addUser, page: () => const AddUser()),
   GetPage(name: AppRoutes.editTask, page: () => const EditTask()),
   GetPage(name: AppRoutes.settings, page: () => const UserSettings()),
+  GetPage(name: AppRoutes.forgetPassword, page: () => const ForgetPassword()),
+  GetPage(name: AppRoutes.changeEmail, page: () => const ChangeEmail()),
+  GetPage(name: AppRoutes.changeUserName, page: () => const ChangeUserName()),
+  GetPage(name: AppRoutes.changeUserPhone, page: () => const ChangeUserPhone()),
+  GetPage(
+      name: AppRoutes.changeUserPassword, page: () => const ChangePassword()),
 ];

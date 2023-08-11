@@ -3,7 +3,28 @@ import 'package:flutter/cupertino.dart';
 
 import '../constant/strings.dart';
 
-customDialog(
+customDialog({
+  required BuildContext context,
+  required DialogType dialogType,
+  required String title,
+  required String description,
+  void Function()? onTapOK,
+  void Function()? onTapCancel,
+}) {
+  return AwesomeDialog(
+    context: context,
+    dialogType: dialogType,
+    animType: AnimType.rightSlide,
+    title: title,
+    desc: description,
+    btnOkOnPress: onTapOK,
+    btnCancelOnPress: onTapCancel,
+    btnOkText: AppStrings.ok,
+    btnCancelText: AppStrings.cancel,
+  )..show();
+}
+
+infoCustomDialog(
     {required BuildContext context,
     required DialogType dialogType,
     required String title,

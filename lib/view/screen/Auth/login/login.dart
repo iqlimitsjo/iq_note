@@ -52,7 +52,7 @@ class Login extends StatelessWidget {
                   );
                 }),
                 InkWell(
-                  onTap: () {},
+                  onTap: controller.goToForgetPassword,
                   child: const Text(
                     AppStrings.forgetPassword,
                     textAlign: TextAlign.end,
