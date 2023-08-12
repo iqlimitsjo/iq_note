@@ -27,19 +27,37 @@ class TaskData {
         "remind": task.taskRemind,
         "isCompleted": task.taskIsCompleted,
         "color": task.color,
+        "department": task.department,
         "attachments": task.attachments,
       },
     );
     return response;
   }
 
-  Future<(List<QueryDocumentSnapshot<Object?>>, CustomResponse)> getTask({
+  Future<(List<QueryDocumentSnapshot<Object?>>, CustomResponse)> getAllTask({
     required String collectionName,
     required String orderBy,
     bool? ascending,
   }) async {
     var response = await CRUDFirebase.getData(
         collectionName: collectionName, orderBy: orderBy, ascending: ascending);
+    return response;
+  }
+
+  Future<(List<QueryDocumentSnapshot<Object?>>, CustomResponse)> getTask({
+    required String collectionName,
+    required String orderBy,
+    required String condition,
+    required String field,
+    bool? ascending,
+  }) async {
+    var response = await CRUDFirebase.getQueryData(
+      collectionName: collectionName,
+      orderBy: orderBy,
+      ascending: ascending,
+      field: field,
+      condition: condition,
+    );
     return response;
   }
 

@@ -16,6 +16,7 @@ import '../../core/function/show_snackbar.dart';
 import '../../core/services/services.dart';
 import '../../data/model/task_model.dart';
 import '../../data/source/remote/task_remote/task_remote.dart';
+import '../../data/source/static/user_data.dart';
 import '../home_controller/home_controller.dart';
 
 class AddTaskController extends GetxController {
@@ -106,6 +107,7 @@ class AddTaskController extends GetxController {
           taskRemind: selectedRemind,
           taskIsCompleted: "0",
           color: selectedColor.toString(),
+          department: userDataList[0].userDepartment,
           attachments: {
             'audio_url': audioDownloadUrl,
             'image_url': downloadUrl

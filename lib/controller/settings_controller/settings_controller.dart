@@ -41,13 +41,6 @@ class SettingsController extends GetxController {
     update();
   }
 
-  // updatePassword() async {
-  //   if (userPassword.text != "" &&
-  //       userController.formStateKey.currentState!.validate()) {
-  //     userController.myServices.user.updatePassword(userPassword.text.trim());
-  //   }
-  // }
-
   uploadImage(File? userFile) async {
     if (userFile != null) {
       statusRequest = StatusRequest.loading;
@@ -71,6 +64,7 @@ class SettingsController extends GetxController {
       await userData.updateUser('users', myServices.user.uid, {
         "user_images": downloadUrl,
       });
+      update();
     }
 
     myServices.user.reload();

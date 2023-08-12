@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../../../core/constant/routes.dart';
 import '../../../core/constant/strings.dart';
+import '../../../data/source/static/user_data.dart';
 import '../shared/button.dart';
 
 class AddTaskBar extends StatelessWidget {
@@ -35,15 +36,17 @@ class AddTaskBar extends StatelessWidget {
               )
             ],
           ),
-          Container(
-            padding: const EdgeInsets.all(10),
-            child: CustomButton(
-                title: ' + ${AppStrings.addN} ',
-                onPressed: () {
-                  Get.toNamed(AppRoutes.addTask);
-                  // _taskController.getTask();
-                }),
-          ),
+          if (userDataList[0].userLevel == "1" ||
+              userDataList[0].userLevel == "2")
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: CustomButton(
+                  title: ' + ${AppStrings.addN} ',
+                  onPressed: () {
+                    Get.toNamed(AppRoutes.addTask);
+                    // _taskController.getTask();
+                  }),
+            ),
         ],
       ),
     );

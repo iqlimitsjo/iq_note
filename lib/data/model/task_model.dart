@@ -15,6 +15,7 @@ class TaskModel {
   final String? audioUrl;
   final String? imageUrl;
   final String? id;
+  final String? department;
   final Map<String, String?>? attachments;
 
   TaskModel({
@@ -30,6 +31,7 @@ class TaskModel {
     this.taskIsCompleted,
     this.color,
     this.id,
+    this.department,
     this.imageUrl,
     this.audioUrl,
     this.attachments,
@@ -49,6 +51,7 @@ class TaskModel {
       "remind": taskRemind,
       "isCompleted": taskIsCompleted,
       "color": color,
+      "department": department,
       "attachments": attachments,
     };
   }
@@ -67,6 +70,7 @@ class TaskModel {
       taskRemind: json["remind"],
       taskIsCompleted: json["isCompleted"],
       color: json["color"],
+      department: json["department"],
       attachments: json["attachments"],
     );
   }
@@ -86,6 +90,7 @@ class TaskModel {
       taskRemind: data["remind"],
       taskIsCompleted: data["isCompleted"],
       color: data["color"],
+      department: data["department"],
       imageUrl: data["attachments"]['image_url'],
       audioUrl: data["attachments"]['audio_url'],
     );
@@ -106,6 +111,7 @@ class TaskModel {
       "task Remind": $taskRemind,
       "task Is Completed": $taskIsCompleted,
       "task Color": $color,
+      "task department": $department,
       "task image URL": $imageUrl,
       "task audio URL": $audioUrl,
   ''';

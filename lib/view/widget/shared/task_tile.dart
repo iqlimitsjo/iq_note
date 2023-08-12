@@ -7,9 +7,11 @@ import 'package:insta_image_viewer/insta_image_viewer.dart';
 import '../../../controller/home_controller/home_controller.dart';
 import '../../../data/model/task_model.dart';
 import '../../../data/source/static/static_color_list.dart';
+import '../../../data/source/static/static_department_list.dart';
 import '../../../data/source/static/static_priority_list.dart';
 import '../../../data/source/static/static_repeat_list.dart';
 import '../../../data/source/static/ststic_remind_list.dart';
+import '../../../data/source/static/user_data.dart';
 import '../task_tile/tile_bottom_button.dart';
 
 class CustomTaskTile extends GetView<HomeController> {
@@ -46,8 +48,15 @@ class CustomTaskTile extends GetView<HomeController> {
           task.taskDate!,
           style: const TextStyle(color: Colors.white),
         ),
-        trailing: Text(
-          priorityList[int.parse(task.taskPriority!)].title,
+        trailing: Column(
+          children: [
+            Text(priorityList[int.parse(task.taskPriority!)].title),
+            Text(
+              departmentList[int.parse(task.department!)].title,
+              style: const TextStyle(
+                  color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
         leading: Column(
           children: [
@@ -120,7 +129,9 @@ class CustomTaskTile extends GetView<HomeController> {
               );
             }),
           const Divider(color: Colors.white),
-          TileButtonBottom(task),
+          if (userDataList[0].userLevel == "1" ||
+              userDataList[0].userLevel == "2")
+            TileButtonBottom(task),
         ],
       ),
     );

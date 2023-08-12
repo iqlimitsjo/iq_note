@@ -9,9 +9,11 @@ import '../../core/constant/routes.dart';
 import '../../core/constant/strings.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../core/function/show_snackbar.dart';
+import '../../core/services/notification_services.dart';
 import '../../core/services/services.dart';
 import '../../data/model/task_model.dart';
 import '../../data/source/remote/task_remote/task_remote.dart';
+import '../../data/source/static/user_data.dart';
 
 class HomeController extends GetxController {
   StatusRequest statusRequest = StatusRequest.none;
@@ -20,6 +22,7 @@ class HomeController extends GetxController {
   TaskData taskData = TaskData(Get.find());
   List<TaskModel> data = [];
   bool isEditing = false;
+  late NotifyHelper notifiHelper;
   TextEditingController noteTitle = TextEditingController();
   TextEditingController noteBody = TextEditingController();
 
@@ -50,8 +53,21 @@ class HomeController extends GetxController {
     data.clear();
     statusRequest = StatusRequest.loading;
     update();
-    var response =
-        await taskData.getTask(collectionName: "limits", orderBy: "priority");
+    var response;
+    if (userDataList[0].userLevel == "2") {
+      response = await taskData.getAllTask(
+        collectionName: "limits",
+        orderBy: "priority",
+      );
+    } else {
+      response = await taskData.getTask(
+        collectionName: "limits",
+        orderBy: "priority",
+        field: 'department',
+        condition: userDataList[0].userDepartment!,
+      );
+    }
+
     statusRequest = handlingFirebaseData(response.$2);
     if (statusRequest == StatusRequest.success &&
         response.$2.message == "success") {
@@ -161,6 +177,9 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     initializeDateFormatting();
+    notifiHelper = NotifyHelper();
+    notifiHelper.requestIOSPermissions();
+    notifiHelper.initializeNotification();
     getTask();
     super.onInit();
   }

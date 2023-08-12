@@ -15,7 +15,7 @@ class MyServices extends GetxService {
   late SharedPreferences sharedPref;
   late FirebaseAuth firebaseAuth;
   late FirebaseFirestore firestore;
-  late FirebaseStorage firestorage;
+  late FirebaseStorage fireStorage;
 
   late final LocalAuthentication auth;
   bool supportState = false;
@@ -26,13 +26,12 @@ class MyServices extends GetxService {
     sharedPref = await SharedPreferences.getInstance();
     firebaseAuth = FirebaseAuth.instance;
     firestore = FirebaseFirestore.instance;
-    firestorage = FirebaseStorage.instance;
+    fireStorage = FirebaseStorage.instance;
     auth = LocalAuthentication();
     supportState = await auth.isDeviceSupported();
 
     await requestNotificationPermissions();
-    initAwesomeNotifications();
-    timeZoneConfig();
+
     fcmConfig();
     // createScheduleNotification();
     return this;

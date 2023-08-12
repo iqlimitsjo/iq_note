@@ -39,9 +39,14 @@ class TaskView extends StatelessWidget {
                         (task.taskRepeat == repeatList[3].value &&
                             DateFormat.yMd().parse(task.taskDate!).day ==
                                 controller.selectedDate.day)) {
-                      // var date = DateFormat.jm().parse(task.taskStartTime!);
-                      // var myTime = DateFormat('HH:mm').format(date);
+                      var date = DateFormat.jm().parse(task.taskStartTime!);
+                      var myTime = DateFormat('HH:mm').format(date);
 
+                      controller.notifiHelper.scheduledNotification(
+                        int.parse(myTime.toString().split(':')[0]),
+                        int.parse(myTime.toString().split(':')[1]),
+                        task,
+                      );
                       return AnimationConfiguration.staggeredList(
                         duration: const Duration(milliseconds: 500),
                         position: index,

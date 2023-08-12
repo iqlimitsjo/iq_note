@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '../../../controller/settings_controller/settings_controller.dart';
 import '../../../core/constant/color.dart';
-import '../../../core/shared/user_data.dart';
 import '../../../generated/assets.dart';
 
 class SettingHeader extends StatelessWidget {
@@ -26,10 +25,14 @@ class SettingHeader extends StatelessWidget {
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(150),
                         child: CachedNetworkImage(
-                          imageUrl: userDataList[0].userImage!,
+                          imageUrl: controller.myServices.user.photoURL!,
                           height: 150,
                           width: 150,
                           fit: BoxFit.fill,
+                          placeholder: (context, url) =>
+                              const CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                              Image.asset(Assets.imagesAvatar),
                         )),
                   )
                 : Container(

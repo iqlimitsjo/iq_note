@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 
 import '../../core/constant/routes.dart';
 import '../../core/services/services.dart';
-import '../../core/shared/user_data.dart';
+import '../../data/source/static/user_data.dart';
 
 class CustomDrawerController extends GetxController {
   MyServices myServices = Get.find();
@@ -12,6 +12,7 @@ class CustomDrawerController extends GetxController {
   signout() async {
     await myServices.firebaseAuth.signOut();
     userDataList.clear();
+    allUsers.clear();
     Get.offAllNamed(AppRoutes.login);
   }
 

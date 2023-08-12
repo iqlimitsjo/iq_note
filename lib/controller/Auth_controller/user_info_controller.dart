@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../core/class/status_request.dart';
+import '../../core/constant/routes.dart';
 import '../../core/constant/strings.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../core/function/show_snackbar.dart';
@@ -75,7 +76,7 @@ class UserInfoController extends GetxController {
       myServices.user.updateDisplayName(userName.text.trim());
       myServices.user.reload();
 
-      await uploadImage(file!);
+      await uploadImage(file);
       var response = await userData.updateUser('users', myServices.user.uid, {
         "user_name": userName.text.trim(),
         "user_phone": phoneNumber.text.trim(),
@@ -85,7 +86,7 @@ class UserInfoController extends GetxController {
       statusRequest = handlingFirebaseData(response);
       if (statusRequest == StatusRequest.success) {
         showSnackBar("تم بنجاح", "تم تعديل  بنجاح", Icons.edit);
-
+        Get.offAllNamed(AppRoutes.home);
         update();
       }
       update();

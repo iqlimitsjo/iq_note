@@ -14,7 +14,7 @@ class CRUDFirebase {
       response_dart.CustomResponse();
 
   static var firestore = myServices.firestore;
-  static var fireStorage = myServices.firestorage;
+  static var fireStorage = myServices.fireStorage;
 
   static Future<(response_dart.CustomResponse, String)> addData({
     required String collectionName,
@@ -67,6 +67,44 @@ class CRUDFirebase {
       });
     } else {
       query = await collectionReference.get().whenComplete(() {
+        myResponse.code = 200;
+        myResponse.message = "success";
+      });
+    }
+
+    if (query.docs.isEmpty) {
+      myResponse.code = 500;
+      myResponse.message = "empty";
+    }
+    return (query.docs, myResponse);
+  }
+
+  static Future<
+          (List<QueryDocumentSnapshot<Object?>>, response_dart.CustomResponse)>
+      getQueryData({
+    required String collectionName,
+    String? orderBy,
+    bool? ascending,
+    required String field,
+    required String condition,
+  }) async {
+    CollectionReference collectionReference =
+        firestore.collection(collectionName);
+    QuerySnapshot query;
+    if (orderBy != null) {
+      query = await collectionReference
+          .orderBy(orderBy, descending: ascending ?? false)
+          .where(field, isEqualTo: condition)
+          .get()
+          .whenComplete(() {
+        myResponse.code = 200;
+        myResponse.message = "success";
+      });
+    } else {
+      query = await collectionReference
+          .where(field, isEqualTo: condition)
+          .get()
+          .whenComplete(() {
         myResponse.code = 200;
         myResponse.message = "success";
       });

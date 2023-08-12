@@ -9,9 +9,9 @@ import '../../core/function/custom_dialog.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../core/function/show_error_auth.dart';
 import '../../core/services/services.dart';
-import '../../core/shared/user_data.dart';
 import '../../data/model/user_model.dart';
 import '../../data/source/remote/user_data/user_remote.dart';
+import '../../data/source/static/user_data.dart';
 
 class LoginController extends GetxController {
   TextEditingController emailController = TextEditingController();
@@ -30,11 +30,12 @@ class LoginController extends GetxController {
     update();
   }
 
-  getUserData() async {
+  getUserData({required String field, required String condition}) async {
     userDataList.clear();
     statusRequest = StatusRequest.loading;
     update();
-    var response = await userData.getUserData("users");
+    var response = await userData.getUserData(
+        collectionName: "users", field: field, condition: condition);
     statusRequest = handlingFirebaseData(response.$2);
     if (statusRequest == StatusRequest.success &&
         response.$2.message == "success") {
@@ -45,7 +46,27 @@ class LoginController extends GetxController {
     }
 
     print(response.$2.message);
-    print(userDataList.toString());
+    print(" user  ${userDataList.toString()}");
+
+    update();
+  }
+
+  getAllUserData() async {
+    allUsers.clear();
+    statusRequest = StatusRequest.loading;
+    update();
+    var response = await userData.getAllUserData("users");
+    statusRequest = handlingFirebaseData(response.$2);
+    if (statusRequest == StatusRequest.success &&
+        response.$2.message == "success") {
+      for (var element in response.$1) {
+        allUsers.add(UserModel.fromFirestore(element));
+      }
+      statusRequest = StatusRequest.success;
+    }
+
+    print(response.$2.message);
+    print(allUsers.toString());
 
     update();
   }
@@ -63,8 +84,10 @@ class LoginController extends GetxController {
         );
 
         myServices.user = credential.user!;
-        getUserData();
         print(myServices.user);
+        await getAllUserData();
+
+        await getUserData(field: 'id', condition: myServices.user.uid);
 
         if (bio == true &&
             (emailController.text.trim() !=
@@ -126,7 +149,8 @@ class LoginController extends GetxController {
           password: myServices.sharedPref.getString("password")!,
         );
         myServices.user = credential.user!;
-        getUserData();
+        await getAllUserData();
+        await getUserData(field: 'id', condition: myServices.user.uid);
         Get.offNamed(AppRoutes.home);
         statusRequest = StatusRequest.success;
         update();

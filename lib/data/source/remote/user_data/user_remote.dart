@@ -11,7 +11,8 @@ class UserData {
 
   UserData(this.crud);
 
-  addUser(String collectionName, UserModel user, String path) async {
+  Future<(CustomResponse, String)> addUser(
+      String collectionName, UserModel user, String path) async {
     var response = await CRUDFirebase.addData(
         collectionName: collectionName,
         data: {
@@ -27,9 +28,18 @@ class UserData {
     return response;
   }
 
-  Future<(List<QueryDocumentSnapshot<Object?>>, CustomResponse)> getUserData(
+  Future<(List<QueryDocumentSnapshot<Object?>>, CustomResponse)> getAllUserData(
       String collectionName) async {
     var response = await CRUDFirebase.getData(collectionName: collectionName);
+    return response;
+  }
+
+  Future<(List<QueryDocumentSnapshot<Object?>>, CustomResponse)> getUserData(
+      {required String collectionName,
+      required String field,
+      required String condition}) async {
+    var response = await CRUDFirebase.getQueryData(
+        collectionName: collectionName, field: field, condition: condition);
     return response;
   }
 

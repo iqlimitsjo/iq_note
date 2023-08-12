@@ -3,6 +3,7 @@ import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../generated/assets.dart';
 import '../shared/app_bar.dart';
 
 class AppDrawerHeader extends StatelessWidget {
@@ -32,6 +33,10 @@ class AppDrawerHeader extends StatelessWidget {
                   height: 100,
                   width: 100,
                   fit: BoxFit.fill,
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) =>
+                      Image.asset(Assets.imagesAvatar),
                 ),
               ),
               Text(
