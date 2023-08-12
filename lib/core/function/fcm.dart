@@ -4,6 +4,32 @@ import 'package:flutter/material.dart';
 
 import '../constant/color.dart';
 
+initAwesomeNotifications() {
+  AwesomeNotifications().initialize(
+    'resource://drawable/appicon',
+    [
+      NotificationChannel(
+        channelGroupKey: 'task_notification',
+        channelKey: 'task_notification',
+        channelName: 'Basic Instant Notification',
+        channelDescription:
+            'Notification channel that can trigger notification instantly.',
+        defaultColor: const Color(0xFF9D50DD),
+        ledColor: Colors.white,
+      ),
+      NotificationChannel(
+        channelGroupKey: 'reminders',
+        channelKey: 'task_notification',
+        channelName: 'Scheduled Notification',
+        channelDescription:
+            'Notification channel that can trigger notification based on predefined time.',
+        defaultColor: const Color(0xFF9D50DD),
+        ledColor: Colors.white,
+      ),
+    ],
+  );
+}
+
 fcmConfig() {
   // FirebaseMessaging.onMessage.listen((message) {
   //   Get.snackbar(
@@ -18,7 +44,7 @@ fcmConfig() {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
           id: 123,
-          channelKey: "notification",
+          channelKey: "task_notification",
           color: Colors.white,
           title: message.notification!.title!,
           body: message.notification!.body!,

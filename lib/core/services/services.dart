@@ -31,9 +31,9 @@ class MyServices extends GetxService {
     supportState = await auth.isDeviceSupported();
 
     await requestNotificationPermissions();
-
+    initAwesomeNotifications();
     fcmConfig();
-    // createScheduleNotification();
+
     return this;
   }
 

@@ -15,7 +15,7 @@ Future<void> backgroundHandler(RemoteMessage message) async {
   AwesomeNotifications().createNotification(
     content: NotificationContent(
         id: 123,
-        channelKey: "notification",
+        channelKey: "task_notification",
         color: Colors.white,
         title: message.notification!.title!,
         body: message.notification!.body!,
