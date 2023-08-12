@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>607676168991-rtuvp6pqm4m3i422gc7j70d5ihtb8f69.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.607676168991-rtuvp6pqm4m3i422gc7j70d5ihtb8f69</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>607676168991-5nig4atfl6orkl9s33ck679hmniikk1s.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA8i9Y8RfNWPb7gGuf6Yfuf52cwXd0FKvo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>607676168991</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.iqNote</string>
+	<key>PROJECT_ID</key>
+	<string>iq-note-e121e</string>
+	<key>STORAGE_BUCKET</key>
+	<string>iq-note-e121e.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:607676168991:ios:445bfcc4a43d0e7dcb8e2a</string>
+</dict>
+</plist>

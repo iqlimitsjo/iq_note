@@ -1,4 +1,4 @@
-package com.example.iq_note
+package com.iqlimits.iq_note
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 

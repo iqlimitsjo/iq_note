@@ -15,15 +15,15 @@ Future<void> backgroundHandler(RemoteMessage message) async {
   AwesomeNotifications().createNotification(
     content: NotificationContent(
         id: 123,
-        channelKey: "scheduled_notification",
+        channelKey: "notification",
         color: Colors.white,
         title: message.notification!.title!,
         body: message.notification!.body!,
-        category: NotificationCategory.Reminder,
+        category: NotificationCategory.Event,
         wakeUpScreen: true,
         locked: true,
         fullScreenIntent: true,
-        autoDismissible: false,
+        autoDismissible: true,
         backgroundColor: AppColor.pinkClr),
   );
 }

@@ -4,6 +4,7 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../../controller/home_controller/home_controller.dart';
 import '../../../data/model/task_model.dart';
+import '../../../data/source/static/static_department_list.dart';
 
 class TileButtonBottom extends GetView<HomeController> {
   final TaskModel task;
@@ -22,13 +23,31 @@ class TileButtonBottom extends GetView<HomeController> {
               Icons.edit,
               color: Colors.white,
             )),
-        IconButton(
-            onPressed: () {},
-            tooltip: "إرسال إشعار",
-            icon: const Icon(
-              Icons.notification_add_sharp,
-              color: Colors.white,
-            )),
+        PopupMenuButton(
+          itemBuilder: (context) => <PopupMenuEntry>[
+            PopupMenuItem(
+              value: "0",
+              child: Text(
+                  'إلى قسم  ${departmentList[int.parse(task.department!)].title} '),
+            ),
+            const PopupMenuItem(
+              value: "1",
+              child: Text('إلى شخص'),
+            ),
+          ],
+          icon: const Icon(
+            Icons.notification_add_sharp,
+            color: Colors.white,
+          ),
+          onSelected: (item) {
+            if (item == "0") {
+              controller.sendTaskNotificationToDepartment(task);
+            }
+            if (item == "1") {
+              controller.goToSendNotificationToPerson(task);
+            }
+          },
+        ),
         IconButton(
             onPressed: () => controller.deleteTask(task.id!),
             tooltip: "حذف",

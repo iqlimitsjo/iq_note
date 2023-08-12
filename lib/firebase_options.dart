@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,19 +49,9 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAAiucqrn1CoQ5fsOXZ9HY2KtAlSjqAhBM',
-    appId: '1:607676168991:web:2063e6a5c9327e9dcb8e2a',
-    messagingSenderId: '607676168991',
-    projectId: 'iq-note-e121e',
-    authDomain: 'iq-note-e121e.firebaseapp.com',
-    storageBucket: 'iq-note-e121e.appspot.com',
-    measurementId: 'G-6VC8HHL0CK',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAde7foV7KsrixAY69QHMejJsI5qGnHA3k',
-    appId: '1:607676168991:android:af7a67600b05f0abcb8e2a',
+    appId: '1:607676168991:android:c7d0c9c0186bfe04cb8e2a',
     messagingSenderId: '607676168991',
     projectId: 'iq-note-e121e',
     storageBucket: 'iq-note-e121e.appspot.com',
@@ -67,17 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '607676168991',
     projectId: 'iq-note-e121e',
     storageBucket: 'iq-note-e121e.appspot.com',
+    androidClientId: '607676168991-5nig4atfl6orkl9s33ck679hmniikk1s.apps.googleusercontent.com',
     iosClientId: '607676168991-rtuvp6pqm4m3i422gc7j70d5ihtb8f69.apps.googleusercontent.com',
     iosBundleId: 'com.example.iqNote',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyA8i9Y8RfNWPb7gGuf6Yfuf52cwXd0FKvo',
-    appId: '1:607676168991:ios:abf7154a29ae2eefcb8e2a',
-    messagingSenderId: '607676168991',
-    projectId: 'iq-note-e121e',
-    storageBucket: 'iq-note-e121e.appspot.com',
-    iosClientId: '607676168991-2hv3vfu1tdf1kqg6fuq3gmifbfqu4mvb.apps.googleusercontent.com',
-    iosBundleId: 'com.example.iqNote.RunnerTests',
   );
 }

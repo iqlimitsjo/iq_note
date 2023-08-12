@@ -8,6 +8,7 @@ import 'view/screen/Auth/login/login.dart';
 import 'view/screen/Auth/user_info/user_info.dart';
 import 'view/screen/home/home.dart';
 import 'view/screen/notification_screen/notification_screen.dart';
+import 'view/screen/send_notification/send_notifications.dart';
 import 'view/screen/settings/change_email.dart';
 import 'view/screen/settings/change_password.dart';
 import 'view/screen/settings/change_phone.dart';
@@ -39,4 +40,6 @@ List<GetPage<dynamic>>? routes = [
   GetPage(name: AppRoutes.changeUserPhone, page: () => const ChangeUserPhone()),
   GetPage(
       name: AppRoutes.changeUserPassword, page: () => const ChangePassword()),
+  GetPage(
+      name: AppRoutes.sendNotifications, page: () => const SendNotifications()),
 ];

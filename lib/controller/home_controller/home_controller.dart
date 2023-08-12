@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -8,11 +9,13 @@ import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/constant/strings.dart';
 import '../../core/function/handling_data_controller.dart';
+import '../../core/function/send_fcm.dart';
 import '../../core/function/show_snackbar.dart';
 import '../../core/services/notification_services.dart';
 import '../../core/services/services.dart';
 import '../../data/model/task_model.dart';
 import '../../data/source/remote/task_remote/task_remote.dart';
+import '../../data/source/static/static_department_list.dart';
 import '../../data/source/static/user_data.dart';
 
 class HomeController extends GetxController {
@@ -22,6 +25,7 @@ class HomeController extends GetxController {
   TaskData taskData = TaskData(Get.find());
   List<TaskModel> data = [];
   bool isEditing = false;
+  GlobalKey key = GlobalKey();
   late NotifyHelper notifiHelper;
   TextEditingController noteTitle = TextEditingController();
   TextEditingController noteBody = TextEditingController();
@@ -98,6 +102,16 @@ class HomeController extends GetxController {
     update();
   }
 
+  sendTaskNotificationToDepartment(TaskModel task) {
+    sendFCM(
+      topic: (departmentList[int.parse(task.department!)].title)
+          .trim()
+          .removeAllWhitespace,
+      title: task.taskTitle!,
+      body: task.taskBody!,
+    );
+  }
+
   updateTask(String id, String value) async {
     statusRequest = StatusRequest.loading;
     update();
@@ -138,11 +152,6 @@ class HomeController extends GetxController {
   playRecording(String audioPath) async {
     try {
       Source urlSource = UrlSource(audioPath);
-      // update();
-      // audioPlayer.onPositionChanged.listen((event) {
-      //   currentDuration = event;
-      //   update();
-      // });
       await audioPlayer.play(urlSource);
       audioPlayer.onPlayerComplete.listen((event) {
         playerState = PlayerState.completed;
@@ -174,9 +183,33 @@ class HomeController extends GetxController {
     });
   }
 
+  goToSendNotificationToPerson(TaskModel payloadTask) {
+    Get.toNamed(AppRoutes.sendNotifications, arguments: {
+      'task': payloadTask,
+    });
+  }
+
+  initData() async {
+    await FirebaseMessaging.instance.subscribeToTopic(myServices.user.uid);
+    if (userDataList[0].userLevel == "2") {
+      await FirebaseMessaging.instance.subscribeToTopic(
+          (departmentList[0].title).trim().removeAllWhitespace);
+      await FirebaseMessaging.instance.subscribeToTopic(
+          (departmentList[1].title).trim().removeAllWhitespace);
+      await FirebaseMessaging.instance.subscribeToTopic(
+          (departmentList[2].title).trim().removeAllWhitespace);
+    } else {
+      await FirebaseMessaging.instance.subscribeToTopic(
+          (departmentList[int.parse(userDataList[0].userDepartment!)].title)
+              .trim()
+              .removeAllWhitespace);
+    }
+  }
+
   @override
   void onInit() {
     initializeDateFormatting();
+    initData();
     notifiHelper = NotifyHelper();
     notifiHelper.requestIOSPermissions();
     notifiHelper.initializeNotification();

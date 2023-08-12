@@ -12,10 +12,12 @@ import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/constant/strings.dart';
 import '../../core/function/handling_data_controller.dart';
+import '../../core/function/send_fcm.dart';
 import '../../core/function/show_snackbar.dart';
 import '../../core/services/services.dart';
 import '../../data/model/task_model.dart';
 import '../../data/source/remote/task_remote/task_remote.dart';
+import '../../data/source/static/static_department_list.dart';
 import '../../data/source/static/user_data.dart';
 import '../home_controller/home_controller.dart';
 
@@ -135,11 +137,25 @@ class AddTaskController extends GetxController {
         showSnackBar(
             "تمت العملية", "تم إضافة الملاحظة بنجاح", Icons.done_rounded);
 
+        sendNotifications();
         homeController.getTask();
         Get.offAndToNamed(AppRoutes.home);
       }
       update();
     }
+  }
+
+  sendNotifications() async {
+    await sendFCM(
+      topic: (departmentList[int.parse(userDataList[0].userDepartment!)].title)
+          .trim()
+          .removeAllWhitespace,
+      body:
+          "تم إضافة ملاحظة جديدة إلى قسم ${departmentList[int.parse(userDataList[0].userDepartment!)].title} ",
+      title: "ملاحظة جديدة",
+      pageId: "home",
+      pageName: 'home',
+    );
   }
 
   startRecord() async {
