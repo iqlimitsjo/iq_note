@@ -3,6 +3,7 @@ import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../controller/home_controller/home_controller.dart';
+import '../../../core/services/notification_services.dart';
 import '../../../data/model/task_model.dart';
 import '../../../data/source/static/static_department_list.dart';
 
@@ -49,7 +50,10 @@ class TileButtonBottom extends GetView<HomeController> {
           },
         ),
         IconButton(
-            onPressed: () => controller.deleteTask(task.id!),
+            onPressed: () {
+              controller.deleteTask(task.id!);
+              NotifyHelper().cancelNotification(task);
+            },
             tooltip: "حذف",
             icon: const Icon(
               Icons.delete,

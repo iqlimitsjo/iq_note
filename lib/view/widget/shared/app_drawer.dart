@@ -41,6 +41,30 @@ class AppDrawer extends StatelessWidget {
                 },
               ),
             DrawerListTile(
+              title: AppStrings.managementServices,
+              icon: Icons.edit_document,
+              onTap: () {
+                Get.back();
+                Get.toNamed(AppRoutes.managementServicesMain);
+              },
+            ),
+            DrawerListTile(
+              title: AppStrings.historyRequest,
+              icon: Icons.history,
+              onTap: () {
+                Get.back();
+                // Get.toNamed(AppRoutes.managementServicesMain);
+              },
+            ),
+            DrawerListTile(
+              title: AppStrings.managementRequests,
+              icon: Icons.request_page,
+              onTap: () {
+                Get.back();
+                // Get.toNamed(AppRoutes.settings);
+              },
+            ),
+            DrawerListTile(
               title: AppStrings.settings,
               icon: Icons.settings,
               onTap: () {

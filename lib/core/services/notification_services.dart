@@ -202,6 +202,7 @@ class NotifyHelper {
 
   cancelAllNotification() async {
     await flutterLocalNotificationsPlugin.cancelAll();
+    print("Cancels All Notifications");
   }
 
   // for older ios platform called this function

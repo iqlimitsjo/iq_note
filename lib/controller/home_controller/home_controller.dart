@@ -23,7 +23,9 @@ class HomeController extends GetxController {
   MyServices myServices = Get.find();
   DateTime selectedDate = DateTime.now();
   TaskData taskData = TaskData(Get.find());
+
   List<TaskModel> data = [];
+
   bool isEditing = false;
   GlobalKey key = GlobalKey();
   late NotifyHelper notifiHelper;
@@ -55,22 +57,21 @@ class HomeController extends GetxController {
 
   getTask() async {
     data.clear();
+
+    notifiHelper.cancelAllNotification();
     statusRequest = StatusRequest.loading;
     update();
-    var response;
-    if (userDataList[0].userLevel == "2") {
-      response = await taskData.getAllTask(
-        collectionName: "limits",
-        orderBy: "priority",
-      );
-    } else {
-      response = await taskData.getTask(
-        collectionName: "limits",
-        orderBy: "priority",
-        field: 'department',
-        condition: userDataList[0].userDepartment!,
-      );
-    }
+    var response = userDataList[0].userLevel == "2"
+        ? await taskData.getAllTask(
+            collectionName: "limits",
+            orderBy: "priority",
+          )
+        : await taskData.getTask(
+            collectionName: "limits",
+            orderBy: "priority",
+            field: 'department',
+            condition: userDataList[0].userDepartment!,
+          );
 
     statusRequest = handlingFirebaseData(response.$2);
     if (statusRequest == StatusRequest.success &&

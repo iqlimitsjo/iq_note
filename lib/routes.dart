@@ -7,6 +7,8 @@ import 'view/screen/Auth/forget_password/forget_email.dart';
 import 'view/screen/Auth/login/login.dart';
 import 'view/screen/Auth/user_info/user_info.dart';
 import 'view/screen/home/home.dart';
+import 'view/screen/management services/management_services_main.dart';
+import 'view/screen/management services/request_vacation.dart';
 import 'view/screen/notification_screen/notification_screen.dart';
 import 'view/screen/send_notification/send_notifications.dart';
 import 'view/screen/settings/change_email.dart';
@@ -42,4 +44,8 @@ List<GetPage<dynamic>>? routes = [
       name: AppRoutes.changeUserPassword, page: () => const ChangePassword()),
   GetPage(
       name: AppRoutes.sendNotifications, page: () => const SendNotifications()),
+  GetPage(
+      name: AppRoutes.managementServicesMain,
+      page: () => const ManagementServicesMain()),
+  GetPage(name: AppRoutes.requestVacation, page: () => const RequestVacation()),
 ];

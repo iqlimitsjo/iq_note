@@ -26,6 +26,7 @@ class TaskView extends StatelessWidget {
                 children: [
                   ...List.generate(controller.data.length, (index) {
                     var task = controller.data[index];
+
                     if (task.taskRepeat == repeatList[1].value ||
                         task.taskDate ==
                             DateFormat.yMd().format(controller.selectedDate) ||

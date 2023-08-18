@@ -21,7 +21,7 @@ class AddTaskBar extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                DateFormat.yMMMMEEEEd('ar').format(DateTime.now()),
+                DateFormat.yMEd('ar').format(DateTime.now()),
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,

@@ -20,18 +20,19 @@ class CRUDFirebase {
     required String collectionName,
     required Map<String, dynamic> data,
     String? path,
+    String? subCollection,
   }) async {
     CollectionReference collectionReference =
         firestore.collection(collectionName);
 
-    DocumentReference documentReferencer = collectionReference.doc(path);
+    DocumentReference documentReferencer = subCollection == null
+        ? collectionReference.doc(path)
+        : collectionReference.doc(path).collection(subCollection).doc();
     await documentReferencer.set(data).whenComplete(() {
       myResponse.code = 200;
       myResponse.message = "success";
-      updateData(
-          collectionName: collectionName,
-          docId: documentReferencer.id,
-          data: {'id': documentReferencer.id});
+
+      documentReferencer.update({'id': documentReferencer.id});
     }).catchError((e) {
       myResponse.code = 500;
       myResponse.message = e.toString();
@@ -120,11 +121,18 @@ class CRUDFirebase {
   static Future<response_dart.CustomResponse> updateData({
     required String collectionName,
     required String docId,
+    String? subCollectionName,
+    String? subCollectionId,
     required Map<String, dynamic> data,
   }) async {
     CollectionReference collectionReference =
         firestore.collection(collectionName);
-    DocumentReference documentReferencer = collectionReference.doc(docId);
+    DocumentReference documentReferencer = subCollectionName == null
+        ? collectionReference.doc(docId)
+        : collectionReference
+            .doc(docId)
+            .collection(subCollectionName)
+            .doc(subCollectionId);
 
     await documentReferencer.update(data).whenComplete(() {
       myResponse.code = 200;

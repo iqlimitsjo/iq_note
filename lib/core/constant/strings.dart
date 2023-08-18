@@ -57,4 +57,10 @@ class AppStrings {
   static const addRecord = "إضافة تسجيل";
   static const addImage = "إضافة صورة";
   static const settings = "الإعدادات";
+  static const managementServices = "الخدمات الإدارية";
+  static const historyRequest = "الطلبات السابقة";
+  static const managementRequests = "الطلبات الإدارية";
+  static const requestVacation = "طلب إجازة";
+  static const requestLeave = "طلب مغادرة";
+  static const requestDelay = "طلب تأخير";
 }
