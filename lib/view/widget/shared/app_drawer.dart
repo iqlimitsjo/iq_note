@@ -53,7 +53,7 @@ class AppDrawer extends StatelessWidget {
               icon: Icons.history,
               onTap: () {
                 Get.back();
-                // Get.toNamed(AppRoutes.managementServicesMain);
+                Get.toNamed(AppRoutes.requestHistory);
               },
             ),
             DrawerListTile(

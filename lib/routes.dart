@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:iq_note/view/screen/task/edit_task/edit_task.dart';
 
 import 'core/constant/routes.dart';
 import 'core/middleware/middleware.dart';
@@ -8,6 +7,7 @@ import 'view/screen/Auth/login/login.dart';
 import 'view/screen/Auth/user_info/user_info.dart';
 import 'view/screen/home/home.dart';
 import 'view/screen/management services/management_services_main.dart';
+import 'view/screen/management services/request_history.dart';
 import 'view/screen/management services/request_vacation.dart';
 import 'view/screen/notification_screen/notification_screen.dart';
 import 'view/screen/send_notification/send_notifications.dart';
@@ -17,6 +17,7 @@ import 'view/screen/settings/change_phone.dart';
 import 'view/screen/settings/change_user_name.dart';
 import 'view/screen/settings/settings.dart';
 import 'view/screen/task/add_task/add_task.dart';
+import 'view/screen/task/edit_task/edit_task.dart';
 import 'view/screen/task/view_filter_task/filtered_task.dart';
 import 'view/screen/users/add_user.dart';
 
@@ -48,4 +49,5 @@ List<GetPage<dynamic>>? routes = [
       name: AppRoutes.managementServicesMain,
       page: () => const ManagementServicesMain()),
   GetPage(name: AppRoutes.requestVacation, page: () => const RequestVacation()),
+  GetPage(name: AppRoutes.requestHistory, page: () => const RequestHistory()),
 ];

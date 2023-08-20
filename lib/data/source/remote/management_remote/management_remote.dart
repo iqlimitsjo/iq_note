@@ -25,11 +25,18 @@ class ManagementRequestData {
 
   Future<(List<QueryDocumentSnapshot<Object?>>, CustomResponse)> getAllRequest({
     required String collectionName,
-    required String orderBy,
+    String? orderBy,
+    required String subCollection,
+    required String subDocument,
     bool? ascending,
   }) async {
     var response = await CRUDFirebase.getData(
-        collectionName: collectionName, orderBy: orderBy, ascending: ascending);
+      collectionName: collectionName,
+      orderBy: orderBy,
+      ascending: ascending,
+      subCollection: subCollection,
+      subDocument: subDocument,
+    );
     return response;
   }
 

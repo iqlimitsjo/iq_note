@@ -52,11 +52,17 @@ class CRUDFirebase {
           (List<QueryDocumentSnapshot<Object?>>, response_dart.CustomResponse)>
       getData({
     required String collectionName,
+    String? subCollection,
+    String? subDocument,
     String? orderBy,
     bool? ascending,
   }) async {
-    CollectionReference collectionReference =
-        firestore.collection(collectionName);
+    CollectionReference collectionReference = subCollection == null
+        ? firestore.collection(collectionName)
+        : firestore
+            .collection(collectionName)
+            .doc(subDocument)
+            .collection(subCollection);
     QuerySnapshot query;
     if (orderBy != null) {
       query = await collectionReference

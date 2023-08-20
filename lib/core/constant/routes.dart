@@ -16,4 +16,5 @@ class AppRoutes {
   static const String sendNotifications = "/sendNotifications";
   static const String managementServicesMain = "/managementServicesMain";
   static const String requestVacation = "/requestVacation";
+  static const String requestHistory = "/requestHistory";
 }

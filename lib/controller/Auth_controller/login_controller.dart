@@ -45,7 +45,6 @@ class LoginController extends GetxController {
       statusRequest = StatusRequest.success;
     }
 
-    print(response.$2.message);
     print(" user  ${userDataList.toString()}");
 
     update();
