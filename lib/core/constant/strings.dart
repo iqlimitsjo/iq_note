@@ -63,4 +63,5 @@ class AppStrings {
   static const requestVacation = "طلب إجازة";
   static const requestLeave = "طلب مغادرة";
   static const requestDelay = "طلب تأخير";
+  static const noteCompleted = "مكتمل";
 }

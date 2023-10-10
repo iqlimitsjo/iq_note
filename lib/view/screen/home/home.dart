@@ -26,6 +26,25 @@ class HomeScreen extends StatelessWidget {
           const AddTaskBar(),
           const AddDateBar(),
           const SizedBox(height: 20),
+          Container(
+            child: Row(
+              children: [
+                Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: const Text(
+                      AppStrings.title,
+                      style: TextStyle(fontSize: 20),
+                    )),
+                const Spacer(),
+                Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: const Text(
+                      AppStrings.noteCompleted,
+                      style: TextStyle(fontSize: 20),
+                    )),
+              ],
+            ),
+          ),
           GetBuilder<HomeController>(builder: (controller) {
             return const TaskView();
           }),

@@ -13,6 +13,7 @@ class Assets {
   static const String cairoCairoSemiBold =
       'assets/fonts/Cairo/Cairo-SemiBold.ttf';
   static const String imagesAvatar = 'assets/images/avatar.png';
+  static const String imagesIqMediaLogo = 'assets/images/iq_media_logo.png';
   static const String imagesIqNote = 'assets/images/iq_note.png';
   static const String lottieAccountCreated =
       'assets/lottie/accountCreated.json';

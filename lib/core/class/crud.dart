@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 
@@ -14,15 +13,14 @@ String _basicAuth =
 Map<String, String> myHeader = {
   'authorization': _basicAuth,
 };
-final dio = Dio();
 
 class CRUD {
   Future<Either<StatusRequest, Map>> postData(String url, Map data) async {
     try {
       if (await checkInternet()) {
-        var response = await dio.post(url, data: data);
+        var response = await http.post(Uri.parse(url), body: data);
         if (response.statusCode == 200 || response.statusCode == 201) {
-          var responseBody = jsonDecode(response.data);
+          var responseBody = jsonDecode(response.body);
           // ignore: avoid_print
           print(responseBody);
           return right(responseBody);

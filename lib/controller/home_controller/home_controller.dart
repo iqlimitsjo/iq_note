@@ -58,7 +58,7 @@ class HomeController extends GetxController {
   getTask() async {
     data.clear();
 
-    notifiHelper.cancelAllNotification();
+    // notifiHelper.cancelAllNotification();
     statusRequest = StatusRequest.loading;
     update();
     var response = userDataList[0].userLevel == "2"

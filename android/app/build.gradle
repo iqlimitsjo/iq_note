@@ -35,7 +35,8 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace "com.iqlimits.iq_note"
     compileSdkVersion flutter.compileSdkVersion
-    ndkVersion flutter.ndkVersion
+    ndkVersion "25.1.8937393"
+//    ndkVersion flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
